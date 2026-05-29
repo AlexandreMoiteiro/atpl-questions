@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 260">
+  <rect width="520" height="260" fill="#fff"/>
+  <line x1="70" y1="130" x2="450" y2="130" stroke="#111827" stroke-width="9" stroke-linecap="round"/>
+  <rect x="215" y="105" width="90" height="50" fill="#fff" stroke="#111827" stroke-width="6"/>
+  <text x="260" y="138" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#111827">V12</text>
+</svg>

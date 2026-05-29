@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 430">
+  <rect width="1100" height="430" fill="#ffffff"/>
+  <text x="550" y="38" text-anchor="middle" font-family="Arial" font-size="26" font-weight="700" fill="#111827">
+    PBN Turn Types: Fly-by, Fly-over and RF
+  </text>
+
+  <g transform="translate(60,80)">
+    <rect x="0" y="0" width="300" height="250" rx="12" fill="#f8fafc" stroke="#e5e7eb"/>
+    <text x="150" y="34" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#f59e0b">Fly-by</text>
+    <circle cx="95" cy="135" r="12" fill="#f59e0b"/>
+    <circle cx="225" cy="90" r="12" fill="#111827"/>
+    <path d="M50 210 C80 160, 120 125, 205 95" fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+    <path d="M95 135 L95 70" stroke="#9ca3af" stroke-width="2" stroke-dasharray="7 7"/>
+    <text x="95" y="162" text-anchor="middle" font-family="Arial" font-size="13" fill="#374151">WP1</text>
+    <text x="225" y="118" text-anchor="middle" font-family="Arial" font-size="13" fill="#374151">WP2</text>
+    <text x="150" y="232" text-anchor="middle" font-family="Arial" font-size="14" fill="#6b7280">Turn anticipation before WP</text>
+  </g>
+
+  <g transform="translate(400,80)">
+    <rect x="0" y="0" width="300" height="250" rx="12" fill="#f8fafc" stroke="#e5e7eb"/>
+    <text x="150" y="34" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#f59e0b">Fly-over</text>
+    <circle cx="95" cy="135" r="12" fill="#f59e0b"/>
+    <circle cx="225" cy="135" r="12" fill="#111827"/>
+    <path d="M45 210 C75 160, 95 150, 95 135 C100 60, 190 80, 225 135" fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+    <text x="95" y="162" text-anchor="middle" font-family="Arial" font-size="13" fill="#374151">WP1</text>
+    <text x="225" y="162" text-anchor="middle" font-family="Arial" font-size="13" fill="#374151">WP2</text>
+    <text x="150" y="232" text-anchor="middle" font-family="Arial" font-size="14" fill="#6b7280">Turn starts at the waypoint</text>
+  </g>
+
+  <g transform="translate(740,80)">
+    <rect x="0" y="0" width="300" height="250" rx="12" fill="#f8fafc" stroke="#e5e7eb"/>
+    <text x="150" y="34" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#f59e0b">RF leg</text>
+    <circle cx="95" cy="165" r="10" fill="#f59e0b"/>
+    <circle cx="205" cy="165" r="10" fill="#111827"/>
+    <circle cx="150" cy="165" r="6" fill="#94a3b8"/>
+    <path d="M95 165 A55 55 0 0 1 205 165" fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+    <line x1="150" y1="165" x2="150" y2="110" stroke="#9ca3af" stroke-width="2" stroke-dasharray="7 7"/>
+    <text x="150" y="190" text-anchor="middle" font-family="Arial" font-size="13" fill="#374151">Arc centre</text>
+    <text x="150" y="232" text-anchor="middle" font-family="Arial" font-size="14" fill="#6b7280">Constant radius to a fix</text>
+  </g>
+
+  <text x="550" y="390" text-anchor="middle" font-family="Arial" font-size="14" fill="#6b7280">
+    Own simplified diagram based on ICAO Doc 8168 Vol I, Part II, Section 1, Chapter 1, Figures II-1-1-2 to II-1-1-4 concept.
+  </text>
+</svg>

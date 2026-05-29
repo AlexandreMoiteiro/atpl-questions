@@ -1,0 +1,35 @@
+<svg width="980" height="520" viewBox="0 0 980 520" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="520" fill="#ffffff"/>
+  <text x="490" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#111827">Aerodrome Warnings</text>
+  <text x="490" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#64748b">For aircraft on the ground, parked aircraft, aerodrome facilities and services</text>
+
+  <g font-family="Arial, sans-serif" font-weight="700" fill="#111827">
+    <rect x="80" y="125" width="160" height="115" rx="18" fill="#f8fafc" stroke="#cbd5e1"/>
+    <path d="M160 155 L130 215 H190 Z" fill="#7c2d12"/>
+    <path d="M160 150 C175 120, 220 145, 200 180 C185 205, 150 180, 160 150Z" fill="#94a3b8"/>
+    <text x="160" y="275" text-anchor="middle" font-size="18">VA / ash</text>
+
+    <rect x="300" y="125" width="160" height="115" rx="18" fill="#f8fafc" stroke="#cbd5e1"/>
+    <path d="M335 180 C350 150, 410 150, 425 180 C455 180, 460 225, 420 225 L345 225 C310 225, 310 185, 335 180Z" fill="#e2e8f0" stroke="#111827" stroke-width="4"/>
+    <path d="M380 225 L360 260 L395 238 L370 280" fill="none" stroke="#f59e0b" stroke-width="5"/>
+    <text x="380" y="275" text-anchor="middle" font-size="18">TS / hail</text>
+
+    <rect x="520" y="125" width="160" height="115" rx="18" fill="#f8fafc" stroke="#cbd5e1"/>
+    <path d="M575 160 L625 160 M565 190 L635 190 M575 220 L625 220" stroke="#0ea5e9" stroke-width="8" stroke-linecap="round"/>
+    <text x="600" y="275" text-anchor="middle" font-size="18">snow / frost</text>
+
+    <rect x="740" y="125" width="160" height="115" rx="18" fill="#f8fafc" stroke="#cbd5e1"/>
+    <path d="M775 205 C820 170, 850 230, 890 190" fill="none" stroke="#ef4444" stroke-width="8" stroke-linecap="round"/>
+    <path d="M775 175 C815 140, 850 190, 885 155" fill="none" stroke="#ef4444" stroke-width="5" stroke-linecap="round"/>
+    <text x="820" y="275" text-anchor="middle" font-size="18">strong wind</text>
+
+    <rect x="190" y="330" width="160" height="75" rx="18" fill="#fffbeb" stroke="#f59e0b"/>
+    <text x="270" y="375" text-anchor="middle" font-size="20">SQUALL</text>
+
+    <rect x="410" y="330" width="160" height="75" rx="18" fill="#fef2f2" stroke="#ef4444"/>
+    <text x="490" y="375" text-anchor="middle" font-size="20">TOXIC</text>
+
+    <rect x="630" y="330" width="160" height="75" rx="18" fill="#ecfeff" stroke="#06b6d4"/>
+    <text x="710" y="375" text-anchor="middle" font-size="20">TSUNAMI</text>
+  </g>
+</svg>

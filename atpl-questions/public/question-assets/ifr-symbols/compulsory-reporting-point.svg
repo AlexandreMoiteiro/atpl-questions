@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320">
+  <rect width="600" height="320" fill="#ffffff"/>
+  <text x="300" y="45" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#111827">
+    Chart Symbol
+  </text>
+
+  <polygon points="300,90 430,245 170,245" fill="#111827"/>
+
+  <text x="300" y="290" text-anchor="middle" font-family="Arial" font-size="15" fill="#64748b">
+    Identify the meaning of the symbol shown.
+  </text>
+</svg>

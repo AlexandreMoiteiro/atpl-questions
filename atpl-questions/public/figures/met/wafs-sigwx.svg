@@ -1,0 +1,26 @@
+<svg width="980" height="540" viewBox="0 0 980 540" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="540" fill="#ffffff"/>
+  <text x="490" y="44" text-anchor="middle" font-family="Arial" font-size="30" font-weight="700" fill="#111827">WAFS / SIGWX Products</text>
+  <text x="490" y="76" text-anchor="middle" font-family="Arial" font-size="15" fill="#64748b">World Area Forecast System products used in flight planning</text>
+
+  <rect x="70" y="125" width="240" height="130" rx="20" fill="#ecfeff" stroke="#06b6d4" stroke-width="3"/>
+  <text x="190" y="166" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="#0e7490">Upper wind</text>
+  <path d="M115 210 C160 170, 230 170, 270 210" fill="none" stroke="#0ea5e9" stroke-width="7"/>
+  <polygon points="270,210 245,198 252,225" fill="#0ea5e9"/>
+  <text x="190" y="238" text-anchor="middle" font-family="Arial" font-size="14" fill="#475569">wind / temperature aloft</text>
+
+  <rect x="370" y="125" width="240" height="130" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="3"/>
+  <text x="490" y="166" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="#111827">SIGWX</text>
+  <path d="M430 205 C445 175, 490 175, 505 202 C535 202, 545 235, 510 240 L430 240 C390 240, 390 205, 430 205Z" fill="#e2e8f0" stroke="#111827" stroke-width="4"/>
+  <path d="M485 240 L465 275 L500 252 L475 292" fill="none" stroke="#f59e0b" stroke-width="5"/>
+  <text x="490" y="305" text-anchor="middle" font-family="Arial" font-size="14" fill="#475569">CB • fronts • turbulence • icing • jet stream</text>
+
+  <rect x="670" y="125" width="240" height="130" rx="20" fill="#fffbeb" stroke="#f59e0b" stroke-width="3"/>
+  <text x="790" y="166" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="#92400e">Tropopause / jet</text>
+  <line x1="710" y1="220" x2="860" y2="220" stroke="#ef4444" stroke-width="7"/>
+  <polygon points="860,220 835,207 835,233" fill="#ef4444"/>
+  <text x="790" y="250" text-anchor="middle" font-family="Arial" font-size="14" fill="#475569">max wind and tropopause data</text>
+
+  <line x1="100" y1="390" x2="880" y2="390" stroke="#111827" stroke-width="4"/>
+  <text x="490" y="430" text-anchor="middle" font-family="Arial" font-size="18" fill="#334155">WAFS supports route, level, fuel, alternates and weather avoidance decisions.</text>
+</svg>

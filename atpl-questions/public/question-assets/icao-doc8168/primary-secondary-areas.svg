@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 360">
+  <rect width="1100" height="360" fill="#ffffff"/>
+  <text x="550" y="38" text-anchor="middle" font-family="Arial" font-size="26" font-weight="700" fill="#111827">
+    Primary and Secondary Areas - MOC Concept
+  </text>
+
+  <line x1="90" y1="250" x2="1010" y2="250" stroke="#111827" stroke-width="2"/>
+  <line x1="90" y1="250" x2="210" y2="120" stroke="#9ca3af" stroke-width="3"/>
+  <line x1="210" y1="120" x2="890" y2="120" stroke="#111827" stroke-width="3"/>
+  <line x1="890" y1="120" x2="1010" y2="250" stroke="#9ca3af" stroke-width="3"/>
+
+  <line x1="210" y1="75" x2="210" y2="285" stroke="#d1d5db" stroke-width="2" stroke-dasharray="8 8"/>
+  <line x1="890" y1="75" x2="890" y2="285" stroke="#d1d5db" stroke-width="2" stroke-dasharray="8 8"/>
+
+  <rect x="210" y="255" width="680" height="42" fill="#fef3c7" stroke="#f59e0b"/>
+  <rect x="90" y="255" width="120" height="42" fill="#f3f4f6" stroke="#9ca3af"/>
+  <rect x="890" y="255" width="120" height="42" fill="#f3f4f6" stroke="#9ca3af"/>
+
+  <text x="550" y="283" text-anchor="middle" font-family="Arial" font-size="20" font-weight="700" fill="#92400e">
+    Primary area: full MOC
+  </text>
+  <text x="150" y="283" text-anchor="middle" font-family="Arial" font-size="16" fill="#374151">
+    Secondary
+  </text>
+  <text x="950" y="283" text-anchor="middle" font-family="Arial" font-size="16" fill="#374151">
+    Secondary
+  </text>
+
+  <text x="550" y="105" text-anchor="middle" font-family="Arial" font-size="18" fill="#111827">
+    Full minimum obstacle clearance
+  </text>
+  <text x="150" y="145" text-anchor="middle" font-family="Arial" font-size="15" fill="#6b7280">
+    MOC reduces
+  </text>
+  <text x="950" y="145" text-anchor="middle" font-family="Arial" font-size="15" fill="#6b7280">
+    MOC reduces
+  </text>
+
+  <text x="550" y="330" text-anchor="middle" font-family="Arial" font-size="14" fill="#6b7280">
+    Own simplified diagram based on ICAO Doc 8168 Vol I, Part II, Section 1, Chapter 1, Figure II-1-1-1 concept.
+  </text>
+</svg>

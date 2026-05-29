@@ -1,0 +1,30 @@
+<svg width="980" height="520" viewBox="0 0 980 520" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="520" fill="#ffffff"/>
+  <text x="490" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#111827">Meteorological Briefing Flow</text>
+  <text x="490" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#64748b">Pre-flight information used by operators and flight crews</text>
+
+  <rect x="55" y="150" width="170" height="95" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="3"/>
+  <text x="140" y="187" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#111827">METAR</text>
+  <text x="140" y="215" text-anchor="middle" font-family="Arial" font-size="14" fill="#475569">actual aerodrome</text>
+
+  <rect x="285" y="150" width="170" height="95" rx="18" fill="#fffbeb" stroke="#f59e0b" stroke-width="3"/>
+  <text x="370" y="187" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#111827">TAF</text>
+  <text x="370" y="215" text-anchor="middle" font-family="Arial" font-size="14" fill="#475569">aerodrome forecast</text>
+
+  <rect x="525" y="150" width="170" height="95" rx="18" fill="#fef2f2" stroke="#ef4444" stroke-width="3"/>
+  <text x="610" y="187" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#111827">SIGMET</text>
+  <text x="610" y="215" text-anchor="middle" font-family="Arial" font-size="14" fill="#475569">en-route hazards</text>
+
+  <rect x="755" y="150" width="170" height="95" rx="18" fill="#ecfeff" stroke="#06b6d4" stroke-width="3"/>
+  <text x="840" y="187" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#111827">WAFS</text>
+  <text x="840" y="215" text-anchor="middle" font-family="Arial" font-size="14" fill="#475569">upper wind / SIGWX</text>
+
+  <line x1="140" y1="245" x2="490" y2="340" stroke="#111827" stroke-width="4"/>
+  <line x1="370" y1="245" x2="490" y2="340" stroke="#111827" stroke-width="4"/>
+  <line x1="610" y1="245" x2="490" y2="340" stroke="#111827" stroke-width="4"/>
+  <line x1="840" y1="245" x2="490" y2="340" stroke="#111827" stroke-width="4"/>
+
+  <rect x="365" y="340" width="250" height="105" rx="22" fill="#111827"/>
+  <text x="490" y="382" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="#ffffff">Flight crew decision</text>
+  <text x="490" y="414" text-anchor="middle" font-family="Arial" font-size="15" fill="#d1d5db">route • fuel • alternates • levels • threats</text>
+</svg>

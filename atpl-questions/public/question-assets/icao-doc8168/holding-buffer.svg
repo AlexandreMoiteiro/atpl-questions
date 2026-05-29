@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 420">
+  <rect width="1100" height="420" fill="#ffffff"/>
+  <text x="550" y="42" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#111827">Holding Area and Buffer Area</text>
+
+  <rect x="240" y="115" width="620" height="210" rx="105" fill="#fef3c7" stroke="#f59e0b" stroke-width="5"/>
+  <rect x="170" y="70" width="760" height="300" rx="150" fill="none" stroke="#94a3b8" stroke-width="4" stroke-dasharray="12 10"/>
+
+  <circle cx="350" cy="220" r="12" fill="#111827"/>
+  <text x="350" y="250" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700">Fix</text>
+
+  <path d="M350 220 C390 135, 705 135, 755 220 C705 305, 390 305, 350 220" fill="none" stroke="#111827" stroke-width="5"/>
+
+  <text x="550" y="200" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#92400e">Holding area</text>
+  <text x="550" y="360" text-anchor="middle" font-family="Arial" font-size="20" fill="#64748b">Buffer area: significant obstacles considered for minimum holding level</text>
+
+  <text x="550" y="400" text-anchor="middle" font-family="Arial" font-size="15" fill="#64748b">Own diagram based on ICAO Doc 8168 conventional holding obstacle clearance concept.</text>
+</svg>

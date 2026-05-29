@@ -1,0 +1,24 @@
+<svg width="980" height="460" viewBox="0 0 980 460" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="460" fill="#ffffff"/>
+  <text x="490" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#111827">BECMG vs TEMPO vs PROB</text>
+
+  <line x1="105" y1="170" x2="875" y2="170" stroke="#e5e7eb" stroke-width="3"/>
+  <line x1="105" y1="310" x2="875" y2="310" stroke="#e5e7eb" stroke-width="3"/>
+
+  <text x="95" y="175" text-anchor="end" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#111827">visibility</text>
+  <text x="95" y="315" text-anchor="end" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#111827">weather</text>
+
+  <path d="M130 255 L330 255 C410 255, 475 170, 550 170 L830 170" fill="none" stroke="#f59e0b" stroke-width="7"/>
+  <text x="360" y="120" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#f59e0b">BECMG</text>
+  <text x="360" y="145" font-family="Arial, sans-serif" font-size="14" fill="#64748b">gradual/irregular change to new condition</text>
+
+  <path d="M145 310 L260 310 C285 230, 345 230, 370 310 L500 310 C525 235, 585 235, 610 310 L830 310" fill="none" stroke="#ef4444" stroke-width="7" stroke-dasharray="14 9"/>
+  <text x="585" y="250" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#ef4444">TEMPO</text>
+  <text x="585" y="275" font-family="Arial, sans-serif" font-size="14" fill="#64748b">temporary fluctuations only</text>
+
+  <rect x="690" y="85" width="170" height="58" rx="14" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="775" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">PROB30</text>
+  <text x="775" y="143" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#64748b">probability group</text>
+
+  <text x="490" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#334155">Exam trap: TEMPO does not permanently change the forecast. BECMG does.</text>
+</svg>

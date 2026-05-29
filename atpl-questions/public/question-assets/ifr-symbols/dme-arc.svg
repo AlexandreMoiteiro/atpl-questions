@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360">
+  <rect width="760" height="360" fill="#ffffff"/>
+
+  <text x="380" y="42" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="#111827">
+    Curved Segment Reference
+  </text>
+
+  <circle cx="250" cy="220" r="14" fill="#111827"/>
+  <text x="250" y="250" text-anchor="middle" font-family="Arial" font-size="15" font-weight="700" fill="#111827">
+    Facility
+  </text>
+
+  <path d="M250 220 A170 170 0 0 1 555 120" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+  <line x1="250" y1="220" x2="430" y2="95" stroke="#94a3b8" stroke-width="3" stroke-dasharray="8 8"/>
+  <line x1="250" y1="220" x2="555" y2="120" stroke="#94a3b8" stroke-width="3" stroke-dasharray="8 8"/>
+
+  <text x="420" y="310" text-anchor="middle" font-family="Arial" font-size="15" fill="#64748b">
+    The curved path remains at a constant distance from the reference facility.
+  </text>
+</svg>

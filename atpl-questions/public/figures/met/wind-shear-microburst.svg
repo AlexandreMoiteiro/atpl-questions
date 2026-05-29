@@ -1,0 +1,28 @@
+<svg width="980" height="520" viewBox="0 0 980 520" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="520" fill="#ffffff"/>
+  <text x="490" y="44" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#111827">Wind Shear / Microburst Concept</text>
+  <text x="490" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#64748b">Low-level wind shear is critical during approach, landing and take-off</text>
+
+  <line x1="95" y1="410" x2="885" y2="410" stroke="#111827" stroke-width="4"/>
+  <rect x="630" y="388" width="120" height="18" rx="6" fill="#111827"/>
+  <polygon points="750,397 790,383 790,411" fill="#111827"/>
+  <text x="710" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#334155">aircraft on final</text>
+
+  <path d="M460 120 C500 95, 560 100, 590 140 C640 140, 675 185, 650 225 C690 245, 670 300, 615 300 L380 300 C320 300, 300 235, 355 215 C335 170, 385 125, 460 120Z" fill="#e2e8f0" stroke="#111827" stroke-width="4"/>
+  <text x="500" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">CB / shower cell</text>
+
+  <path d="M500 305 C500 340, 500 365, 500 395" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round"/>
+  <polygon points="500,405 478,370 522,370" fill="#0ea5e9"/>
+
+  <path d="M500 405 C420 385, 340 365, 250 360" fill="none" stroke="#ef4444" stroke-width="8" stroke-linecap="round"/>
+  <polygon points="245,360 285,340 282,378" fill="#ef4444"/>
+
+  <path d="M500 405 C580 385, 660 365, 760 360" fill="none" stroke="#ef4444" stroke-width="8" stroke-linecap="round"/>
+  <polygon points="765,360 725,340 728,378" fill="#ef4444"/>
+
+  <text x="265" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#ef4444">outflow</text>
+  <text x="735" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#ef4444">outflow</text>
+  <text x="500" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0ea5e9">downdraft</text>
+
+  <text x="490" y="488" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#334155">Typical sequence on approach: headwind gain → downdraft → tailwind loss.</text>
+</svg>

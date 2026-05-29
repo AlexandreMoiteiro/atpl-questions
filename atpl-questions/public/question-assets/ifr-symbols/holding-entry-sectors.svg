@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420">
+  <rect width="760" height="420" fill="#ffffff"/>
+
+  <text x="380" y="42" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="#111827">
+    Holding Pattern Reference
+  </text>
+
+  <circle cx="300" cy="225" r="10" fill="#111827"/>
+  <text x="300" y="255" text-anchor="middle" font-family="Arial" font-size="15" font-weight="700" fill="#111827">
+    Fix
+  </text>
+
+  <path d="M300 225
+           C300 135, 520 135, 520 225
+           C520 315, 300 315, 300 225"
+        fill="none"
+        stroke="#f59e0b"
+        stroke-width="7"
+        stroke-linecap="round"/>
+
+  <line x1="300" y1="225" x2="145" y2="225" stroke="#111827" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="145,225 170,212 170,238" fill="#111827"/>
+
+  <path d="M300 225 L300 95" stroke="#cbd5e1" stroke-width="3" stroke-dasharray="8 8"/>
+  <path d="M300 225 L190 315" stroke="#cbd5e1" stroke-width="3" stroke-dasharray="8 8"/>
+  <path d="M300 225 L410 315" stroke="#cbd5e1" stroke-width="3" stroke-dasharray="8 8"/>
+
+  <text x="380" y="372" text-anchor="middle" font-family="Arial" font-size="15" fill="#64748b">
+    Simplified holding pattern used for entry and protected-area questions.
+  </text>
+</svg>

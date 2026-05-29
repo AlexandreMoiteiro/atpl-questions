@@ -1,0 +1,51 @@
+<svg width="980" height="520" viewBox="0 0 980 520" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="520" fill="#ffffff"/>
+  <text x="490" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#111827">METAR / TAF Code Symbols</text>
+  <text x="490" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#64748b">Training symbols for common aviation weather codes</text>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="70" y="120" width="180" height="120" rx="18" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="160" y="157" text-anchor="middle" font-size="28" font-weight="700" fill="#111827">CB</text>
+    <path d="M105 195 C115 170, 145 170, 155 190 C170 165, 210 175, 210 202 C210 225, 100 225, 100 202 C100 199,102 197,105 195Z" fill="#e2e8f0" stroke="#111827" stroke-width="4"/>
+    <path d="M160 225 L145 258 L170 238 L157 275" fill="none" stroke="#f59e0b" stroke-width="5"/>
+    <text x="160" y="300" text-anchor="middle" font-size="15" fill="#475569">Cumulonimbus</text>
+
+    <rect x="290" y="120" width="180" height="120" rx="18" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="380" y="157" text-anchor="middle" font-size="28" font-weight="700" fill="#111827">TSRA</text>
+    <path d="M325 190 C340 165, 385 165, 400 190 C425 190, 435 225, 405 225 L335 225 C305 225, 305 195, 325 190Z" fill="#e2e8f0" stroke="#111827" stroke-width="4"/>
+    <path d="M380 225 L362 260 L392 238 L372 280" fill="none" stroke="#f59e0b" stroke-width="5"/>
+    <line x1="340" y1="245" x2="330" y2="275" stroke="#0ea5e9" stroke-width="4"/>
+    <line x1="415" y1="245" x2="405" y2="275" stroke="#0ea5e9" stroke-width="4"/>
+    <text x="380" y="300" text-anchor="middle" font-size="15" fill="#475569">Thunderstorm rain</text>
+
+    <rect x="510" y="120" width="180" height="120" rx="18" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="600" y="157" text-anchor="middle" font-size="28" font-weight="700" fill="#111827">FZFG</text>
+    <path d="M545 210 H655 M545 230 H655 M545 250 H655" stroke="#94a3b8" stroke-width="7" stroke-linecap="round"/>
+    <path d="M600 180 L600 205 M585 192 L615 192 M590 182 L610 202 M610 182 L590 202" stroke="#38bdf8" stroke-width="4"/>
+    <text x="600" y="300" text-anchor="middle" font-size="15" fill="#475569">Freezing fog</text>
+
+    <rect x="730" y="120" width="180" height="120" rx="18" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="820" y="157" text-anchor="middle" font-size="28" font-weight="700" fill="#111827">+RA</text>
+    <path d="M760 195 C775 170, 815 172, 830 195 C855 195, 865 225, 835 225 L770 225 C745 225, 742 198, 760 195Z" fill="#e2e8f0" stroke="#111827" stroke-width="4"/>
+    <line x1="780" y1="240" x2="765" y2="280" stroke="#0ea5e9" stroke-width="6"/>
+    <line x1="820" y1="240" x2="805" y2="280" stroke="#0ea5e9" stroke-width="6"/>
+    <line x1="855" y1="240" x2="840" y2="280" stroke="#0ea5e9" stroke-width="6"/>
+    <text x="820" y="300" text-anchor="middle" font-size="15" fill="#475569">Heavy rain</text>
+
+    <rect x="70" y="340" width="180" height="80" rx="18" fill="#fffbeb" stroke="#f59e0b"/>
+    <text x="160" y="375" text-anchor="middle" font-size="26" font-weight="700" fill="#111827">BECMG</text>
+    <text x="160" y="402" text-anchor="middle" font-size="15" fill="#475569">becoming</text>
+
+    <rect x="290" y="340" width="180" height="80" rx="18" fill="#fef2f2" stroke="#ef4444"/>
+    <text x="380" y="375" text-anchor="middle" font-size="26" font-weight="700" fill="#111827">TEMPO</text>
+    <text x="380" y="402" text-anchor="middle" font-size="15" fill="#475569">temporary</text>
+
+    <rect x="510" y="340" width="180" height="80" rx="18" fill="#ecfeff" stroke="#06b6d4"/>
+    <text x="600" y="375" text-anchor="middle" font-size="26" font-weight="700" fill="#111827">FM</text>
+    <text x="600" y="402" text-anchor="middle" font-size="15" fill="#475569">from / new state</text>
+
+    <rect x="730" y="340" width="180" height="80" rx="18" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="820" y="375" text-anchor="middle" font-size="26" font-weight="700" fill="#111827">PROB30</text>
+    <text x="820" y="402" text-anchor="middle" font-size="15" fill="#475569">probability</text>
+  </g>
+</svg>

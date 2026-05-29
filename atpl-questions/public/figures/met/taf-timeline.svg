@@ -1,0 +1,37 @@
+<svg width="980" height="420" viewBox="0 0 980 420" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="420" fill="#ffffff"/>
+  <text x="490" y="46" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#111827">TAF Timeline Logic</text>
+  <text x="490" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#64748b">Base forecast, gradual change, temporary fluctuations and a new forecast state</text>
+
+  <line x1="100" y1="210" x2="880" y2="210" stroke="#111827" stroke-width="4"/>
+  <polygon points="880,210 860,198 860,222" fill="#111827"/>
+
+  <line x1="130" y1="190" x2="130" y2="230" stroke="#111827" stroke-width="3"/>
+  <line x1="330" y1="190" x2="330" y2="230" stroke="#111827" stroke-width="3"/>
+  <line x1="530" y1="190" x2="530" y2="230" stroke="#111827" stroke-width="3"/>
+  <line x1="700" y1="190" x2="700" y2="230" stroke="#111827" stroke-width="3"/>
+  <line x1="835" y1="190" x2="835" y2="230" stroke="#111827" stroke-width="3"/>
+
+  <text x="130" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#111827">1600Z</text>
+  <text x="330" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#111827">1606Z</text>
+  <text x="530" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#111827">1608Z</text>
+  <text x="700" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#111827">161230Z</text>
+  <text x="835" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#111827">1706Z</text>
+
+  <rect x="115" y="125" width="210" height="48" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="220" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#111827">Initial TAF state</text>
+
+  <path d="M335 150 C390 105, 470 105, 525 150" fill="none" stroke="#f59e0b" stroke-width="6"/>
+  <text x="430" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#f59e0b">BECMG</text>
+  <text x="430" y="142" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#64748b">change becomes the new baseline</text>
+
+  <path d="M555 150 C585 95, 645 95, 675 150" fill="none" stroke="#ef4444" stroke-width="6" stroke-dasharray="12 8"/>
+  <text x="615" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#ef4444">TEMPO</text>
+  <text x="615" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#64748b">temporary only</text>
+
+  <rect x="700" y="125" width="130" height="48" rx="12" fill="#ecfeff" stroke="#06b6d4"/>
+  <text x="765" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0891b2">FM</text>
+  <text x="765" y="178" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#64748b">new forecast state</text>
+
+  <text x="490" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#334155">BECMG modifies the baseline. TEMPO does not replace the baseline. FM starts a new forecast segment.</text>
+</svg>
