@@ -2,182 +2,119 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import type { SkillTestScope } from "@/lib/supabase";
 
-type SubjectTopicGroup = {
-  subject: string;
-  topics: string[];
+type PracticeGroup = {
+  scope: Exclude<SkillTestScope, "common">;
+  label: string;
+  description: string;
+  categories: string[];
+  count: number;
 };
 
 type Props = {
-  subjectTopics: SubjectTopicGroup[];
+  groups: PracticeGroup[];
 };
 
-function shuffleArray<T>(items: T[]) {
-  const shuffled = [...items];
-
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const randomIndex = Math.floor(Math.random() * (index + 1));
-    const temporaryItem = shuffled[index];
-
-    shuffled[index] = shuffled[randomIndex];
-    shuffled[randomIndex] = temporaryItem;
-  }
-
-  return shuffled;
-}
-
-export default function NewTestForm({ subjectTopics }: Props) {
+export default function NewTestForm({ groups }: Props) {
   const router = useRouter();
+  const [scope, setScope] = useState("");
+  const [category, setCategory] = useState("");
 
-  const [selectedSubject, setSelectedSubject] = useState("");
-  const [selectedTopic, setSelectedTopic] = useState("");
-  const [isCreating, setIsCreating] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const selectedGroup = useMemo(
+    () => groups.find((group) => group.scope === scope),
+    [groups, scope]
+  );
 
-  const topics = useMemo(() => {
-    const selectedGroup = subjectTopics.find(
-      (group) => group.subject === selectedSubject
-    );
+  function startPractice() {
+    if (!scope) return;
 
-    return selectedGroup?.topics ?? [];
-  }, [selectedSubject, subjectTopics]);
-
-  async function startTest() {
-    if (!selectedSubject) {
-      setErrorMessage("Please select a subject first.");
-      return;
-    }
-
-    setIsCreating(true);
-    setErrorMessage(null);
-
-    let query = supabase
-      .from("questions")
-      .select("id")
-      .eq("subject", selectedSubject)
-      .order("created_at", { ascending: true });
-
-    if (selectedTopic) {
-      query = query.eq("topic", selectedTopic);
-    }
-
-    const { data: questions, error: questionsError } = await query;
-
-    if (questionsError) {
-      setErrorMessage(questionsError.message);
-      setIsCreating(false);
-      return;
-    }
-
-    if (!questions || questions.length === 0) {
-      setErrorMessage("No questions found for this selection.");
-      setIsCreating(false);
-      return;
-    }
-
-    const shuffledQuestions = shuffleArray(questions);
-
-    const { data: session, error: sessionError } = await supabase
-      .from("test_sessions")
-      .insert({
-        visitor_id: "anonymous",
-        mode: "study",
-        status: "active",
-        subject: selectedSubject,
-        topic: selectedTopic || null,
-        total_questions: shuffledQuestions.length,
-        current_index: 0,
-        correct_answers: 0,
-        wrong_answers: 0,
-      })
-      .select("id")
-      .single();
-
-    if (sessionError || !session) {
-      setErrorMessage(sessionError?.message ?? "Could not create test session.");
-      setIsCreating(false);
-      return;
-    }
-
-    const sessionQuestions = shuffledQuestions.map((question, index) => ({
-      session_id: session.id,
-      question_id: question.id,
-      position: index,
-    }));
-
-    const { error: sessionQuestionsError } = await supabase
-      .from("test_session_questions")
-      .insert(sessionQuestions);
-
-    if (sessionQuestionsError) {
-      setErrorMessage(sessionQuestionsError.message);
-      setIsCreating(false);
-      return;
-    }
-
-    router.push(`/questions?session=${session.id}`);
+    const params = new URLSearchParams({ scope });
+    if (category) params.set("category", category);
+    router.push(`/questions?${params.toString()}`);
   }
 
   return (
-    <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-4xl flex-col items-center justify-center px-6 py-12">
-      <h1 className="text-center text-5xl font-light tracking-[0.08em] text-slate-950">
-        New Test
-      </h1>
+    <section className="mx-auto max-w-5xl px-6 py-12">
+      <div className="text-center">
+        <p className="text-xs font-black uppercase tracking-[0.22em] text-amber-500">
+          New oral practice session
+        </p>
+        <h1 className="mt-4 text-4xl font-light tracking-tight text-slate-950 md:text-5xl">
+          Choose the skill-test profile
+        </h1>
+        <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+          Read the examiner prompt, answer aloud, then reveal the model answer, key points and the
+          exact regulatory or aircraft-document reference.
+        </p>
+      </div>
 
-      <div className="mt-10 h-1.5 w-24 rounded-full bg-amber-400" />
+      <div className="mt-10 grid gap-5 lg:grid-cols-3">
+        {groups.map((group) => {
+          const selected = group.scope === scope;
 
-      <div className="mt-16 w-full max-w-3xl space-y-6">
+          return (
+            <button
+              key={group.scope}
+              type="button"
+              onClick={() => {
+                setScope(group.scope);
+                setCategory("");
+              }}
+              className={[
+                "rounded-2xl border p-6 text-left shadow-sm transition",
+                selected
+                  ? "border-amber-400 bg-amber-50 ring-2 ring-amber-200"
+                  : "border-slate-200 bg-white hover:-translate-y-1 hover:border-amber-300 hover:shadow-md",
+              ].join(" ")}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-xs font-black uppercase tracking-[0.16em] text-amber-600">
+                  {group.label}
+                </span>
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-500">
+                  {group.count}
+                </span>
+              </div>
+              <p className="mt-4 text-sm leading-7 text-slate-600">{group.description}</p>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <label className="text-xs font-black uppercase tracking-[0.16em] text-slate-500">
+          Optional category filter
+        </label>
         <select
-          value={selectedSubject}
-          onChange={(event) => {
-            setSelectedSubject(event.target.value);
-            setSelectedTopic("");
-            setErrorMessage(null);
-          }}
-          className="h-16 w-full rounded-md border border-amber-400 bg-white px-5 text-2xl font-light tracking-wide text-slate-900 outline-none transition focus:ring-2 focus:ring-amber-300"
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
+          disabled={!selectedGroup}
+          className="mt-3 h-14 w-full rounded-lg border border-slate-300 bg-white px-4 text-base font-semibold text-slate-800 outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
         >
-          <option value="">Please select a subject!</option>
-
-          {subjectTopics.map((group) => (
-            <option key={group.subject} value={group.subject}>
-              {group.subject}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={selectedTopic}
-          onChange={(event) => {
-            setSelectedTopic(event.target.value);
-            setErrorMessage(null);
-          }}
-          disabled={!selectedSubject}
-          className="h-16 w-full rounded-md border border-amber-400 bg-white px-5 text-2xl font-light tracking-wide text-slate-900 outline-none transition focus:ring-2 focus:ring-amber-300 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-100 disabled:text-slate-400"
-        >
-          <option value="">All topics</option>
-
-          {topics.map((topic) => (
-            <option key={topic} value={topic}>
-              {topic}
+          <option value="">All relevant categories</option>
+          {(selectedGroup?.categories ?? []).map((item) => (
+            <option key={item} value={item}>
+              {item}
             </option>
           ))}
         </select>
 
         <button
-          onClick={startTest}
-          disabled={isCreating}
-          className="h-16 w-full rounded-md bg-amber-400 text-2xl font-light uppercase tracking-[0.08em] text-white transition hover:bg-amber-500 disabled:cursor-not-allowed disabled:bg-slate-300"
+          type="button"
+          onClick={startPractice}
+          disabled={!scope}
+          className="mt-5 h-14 w-full rounded-lg bg-slate-950 text-sm font-black uppercase tracking-[0.14em] text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-300"
         >
-          {isCreating ? "Creating..." : "Test"}
+          Start oral practice
         </button>
-
-        {errorMessage && (
-          <div className="rounded-md border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700">
-            {errorMessage}
-          </div>
-        )}
       </div>
-    </div>
+
+      <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-slate-700">
+        P2006T questions are included in CPL and IR/PBN. SEP remains aircraft-neutral because the
+        P2006T is a multi-engine aeroplane; exact SEP aircraft values must come from the aircraft used
+        for that test.
+      </div>
+    </section>
   );
 }
