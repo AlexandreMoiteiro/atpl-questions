@@ -23,8 +23,8 @@ const profiles = {
     description: "IFR planning, PBN operations, instrument procedures and failures.",
   },
   sep: {
-    label: "SEP Class Rating",
-    description: "Appendix 9 preparation for the actual single-engine aircraft used.",
+    label: "SEP — Tecnam P2008JC",
+    description: "SEP skill-test preparation for the Sevenair Tecnam P2008JC.",
   },
 } as const;
 
@@ -42,8 +42,11 @@ function belongsToScope(question: SkillTestQuestion, scope: PracticeScope) {
   if (question.skill_test_scope === scope) return true;
   if (question.skill_test_scope !== "common") return false;
 
-  // The P2006T is MEP. Aircraft-specific common prompts must not appear in SEP.
-  return scope !== "sep" || !question.aircraft_model;
+  if (scope === "sep") {
+    return !question.aircraft_model || question.aircraft_model === "Tecnam P2008JC";
+  }
+
+  return question.aircraft_model !== "Tecnam P2008JC";
 }
 
 export default async function QuestionsPage({ searchParams }: PageProps) {
