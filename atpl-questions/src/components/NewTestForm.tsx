@@ -111,9 +111,9 @@ export default function NewTestForm({ groups }: Props) {
       </div>
 
       <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-slate-700">
-        P2006T questions are included in CPL and IR/PBN. SEP remains aircraft-neutral because the
-        P2006T is a multi-engine aeroplane; exact SEP aircraft values must come from the aircraft used
-        for that test.
+        CPL and IR/PBN use the Tecnam P2006T where aircraft-specific content is relevant. The SEP
+        profile is built for the Sevenair Tecnam P2008JC using AFM Doc. 2008/100, Edition 2,
+        Revision 18 and the supplements applicable to the actual aircraft.
       </div>
     </section>
   );
