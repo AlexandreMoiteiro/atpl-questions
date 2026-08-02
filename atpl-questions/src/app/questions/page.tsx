@@ -1,162 +1,116 @@
-import Link from "next/link";
 import AppHeader from "@/components/AppHeader";
 import NewTestForm from "@/components/NewTestForm";
-import QuestionRunner from "@/components/QuestionRunner";
-import { supabase, type Question } from "@/lib/supabase";
+import OralQuestionRunner from "@/components/OralQuestionRunner";
+import {
+  supabase,
+  type SkillTestQuestion,
+  type SkillTestScope,
+} from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
 type PageProps = {
-  searchParams: Promise<{
-    session?: string;
-    new?: string;
-  }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-type SessionAnswerRow = {
-  question_id: string;
-  selected_option: "A" | "B" | "C" | "D";
-  correct_option: "A" | "B" | "C" | "D";
-  is_correct: boolean;
-};
+const profiles = {
+  cpl: {
+    label: "CPL(A) Skill Test",
+    description: "Performance, planning, judgement and commercial-pilot decision-making.",
+  },
+  "ir-pbn": {
+    label: "IR(A) with PBN",
+    description: "IFR planning, PBN operations, instrument procedures and failures.",
+  },
+  sep: {
+    label: "SEP — Tecnam P2008JC",
+    description: "SEP skill-test preparation for the Sevenair Tecnam P2008JC.",
+  },
+} as const;
 
-type SessionQuestionRow = {
-  position: number;
-  question: Question | Question[] | null;
-};
+type PracticeScope = keyof typeof profiles;
 
-type QuestionTopicRow = {
-  subject: string;
-  topic: string | null;
-};
+function firstValue(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function isPracticeScope(value: string | undefined): value is PracticeScope {
+  return value === "cpl" || value === "ir-pbn" || value === "sep";
+}
+
+function belongsToScope(question: SkillTestQuestion, scope: PracticeScope) {
+  if (question.skill_test_scope === scope) return true;
+  if (question.skill_test_scope !== "common") return false;
+
+  if (scope === "sep") {
+    return !question.aircraft_model || question.aircraft_model === "Tecnam P2008JC";
+  }
+
+  return question.aircraft_model !== "Tecnam P2008JC";
+}
 
 export default async function QuestionsPage({ searchParams }: PageProps) {
   const params = await searchParams;
-  const sessionId = params.session ?? null;
+  const requestedScope = firstValue(params.scope);
+  const requestedCategory = firstValue(params.category)?.trim() || "";
 
-  if (!sessionId) {
-    const subjectsResult = await supabase
-      .from("questions")
-      .select("subject, topic")
-      .order("subject", { ascending: true })
-      .order("topic", { ascending: true });
+  const { data, error } = await supabase
+    .from("skill_test_questions")
+    .select("*")
+    .eq("is_active", true)
+    .order("sort_order", { ascending: true });
 
-    const rows = (subjectsResult.data ?? []) as QuestionTopicRow[];
+  const allQuestions = (data ?? []) as SkillTestQuestion[];
 
-    const subjectMap = new Map<string, Set<string>>();
-
-    for (const row of rows) {
-      if (!row.subject) continue;
-
-      if (!subjectMap.has(row.subject)) {
-        subjectMap.set(row.subject, new Set<string>());
-      }
-
-      if (row.topic) {
-        subjectMap.get(row.subject)?.add(row.topic);
-      }
-    }
-
-    const subjectTopics = Array.from(subjectMap.entries()).map(
-      ([subject, topics]) => ({
-        subject,
-        topics: Array.from(topics).sort((a, b) => a.localeCompare(b)),
-      })
+  const groups = (Object.keys(profiles) as PracticeScope[]).map((scope) => {
+    const questions = allQuestions.filter((question) => belongsToScope(question, scope));
+    const categories = Array.from(new Set(questions.map((question) => question.category))).sort(
+      (left, right) => left.localeCompare(right)
     );
 
+    return {
+      scope: scope as Exclude<SkillTestScope, "common">,
+      label: profiles[scope].label,
+      description: profiles[scope].description,
+      categories,
+      count: questions.length,
+    };
+  });
+
+  if (!isPracticeScope(requestedScope)) {
     return (
-      <main className="min-h-screen bg-[#f4f6fa]">
+      <main className="min-h-screen bg-[#f4f6fa] text-slate-900">
         <AppHeader />
-        <NewTestForm subjectTopics={subjectTopics} />
+        {error && (
+          <div className="mx-auto mt-8 max-w-3xl rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700">
+            Could not load the curated bank: {error.message}
+          </div>
+        )}
+        <NewTestForm groups={groups} />
       </main>
     );
   }
 
-  const [sessionResult, sessionQuestionsResult, answersResult] = await Promise.all([
-    supabase
-      .from("test_sessions")
-      .select("*")
-      .eq("id", sessionId)
-      .single(),
-
-    supabase
-      .from("test_session_questions")
-      .select("position, question:questions(*)")
-      .eq("session_id", sessionId)
-      .order("position", { ascending: true }),
-
-    supabase
-      .from("test_session_answers")
-      .select("question_id, selected_option, correct_option, is_correct")
-      .eq("session_id", sessionId),
-  ]);
-
-  const session = sessionResult.data;
-
-  const rows = (sessionQuestionsResult.data ?? []) as SessionQuestionRow[];
-
-  const questions = rows
-    .map((row) => {
-      if (Array.isArray(row.question)) return row.question[0] ?? null;
-      return row.question;
-    })
-    .filter(Boolean) as Question[];
-
-  const answerRows = (answersResult.data ?? []) as SessionAnswerRow[];
-
-  const initialAnswers = Object.fromEntries(
-    answerRows.map((answer) => [
-      answer.question_id,
-      {
-        selectedOption: answer.selected_option,
-        correctOption: answer.correct_option,
-        isCorrect: answer.is_correct,
-      },
-    ])
+  const questionsForScope = allQuestions.filter((question) =>
+    belongsToScope(question, requestedScope)
   );
-
-  const initialCurrentIndex = session?.current_index ?? 0;
+  const filteredQuestions = requestedCategory
+    ? questionsForScope.filter((question) => question.category === requestedCategory)
+    : questionsForScope;
 
   return (
-    <main className="min-h-screen bg-[#f4f6fa]">
+    <main className="min-h-screen bg-[#f4f6fa] text-slate-900">
       <AppHeader />
-
-      <section className="mx-auto max-w-7xl px-6 py-8">
-        <div className="mb-7 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <Link
-              href="/"
-              className="text-sm font-black uppercase tracking-[0.14em] text-amber-500 transition hover:text-amber-600"
-            >
-              ← Dashboard
-            </Link>
-
-            <h1 className="mt-3 text-5xl font-light tracking-wide text-slate-950">
-              {session?.topic ?? session?.subject ?? "Saved Test"}
-            </h1>
-
-            <p className="mt-2 text-slate-600">
-              Click an answer to save it automatically. Use ← and → to move between questions.
-            </p>
-          </div>
-
-          <div className="rounded-md border border-slate-200 bg-white px-5 py-3 shadow-sm">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
-              Questions
-            </p>
-            <p className="mt-1 text-2xl font-light text-slate-950">
-              {questions.length}
-            </p>
-          </div>
+      {error && (
+        <div className="mx-auto mt-8 max-w-3xl rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700">
+          Could not load the curated bank: {error.message}
         </div>
-
-        <QuestionRunner
-          questions={questions}
-          initialSessionId={sessionId}
-          initialCurrentIndex={initialCurrentIndex}
-          initialAnswers={initialAnswers}
-        />
-      </section>
+      )}
+      <OralQuestionRunner
+        questions={filteredQuestions}
+        profileLabel={profiles[requestedScope].label}
+        categoryLabel={requestedCategory || null}
+      />
     </main>
   );
 }

@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import SiteHeader from "@/components/SiteHeader";
 
 export const metadata: Metadata = {
   title: {
-    default: "ATPL QBank",
-    template: "%s | ATPL QBank",
+    default: "Skill Test Prep",
+    template: "%s | Skill Test Prep",
   },
-  description: "Personal ATPL question bank for aviation study.",
-  applicationName: "ATPL QBank",
+  description:
+    "Examiner-focused oral preparation for CPL, IR with PBN and SEP skill tests.",
+  applicationName: "Skill Test Prep",
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -31,7 +31,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-slate-100 text-slate-950 antialiased">
-        <SiteHeader />
         {children}
       </body>
     </html>
