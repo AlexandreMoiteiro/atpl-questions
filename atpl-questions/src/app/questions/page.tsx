@@ -38,17 +38,6 @@ function isPracticeScope(value: string | undefined): value is PracticeScope {
   return value === "cpl" || value === "ir-pbn" || value === "sep";
 }
 
-function belongsToScope(question: SkillTestQuestion, scope: PracticeScope) {
-  if (question.skill_test_scope === scope) return true;
-  if (question.skill_test_scope !== "common") return false;
-
-  if (scope === "sep") {
-    return !question.aircraft_model || question.aircraft_model === "Tecnam P2008JC";
-  }
-
-  return question.aircraft_model !== "Tecnam P2008JC";
-}
-
 export default async function QuestionsPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const requestedScope = firstValue(params.scope);
@@ -63,13 +52,13 @@ export default async function QuestionsPage({ searchParams }: PageProps) {
   const allQuestions = (data ?? []) as SkillTestQuestion[];
 
   const groups = (Object.keys(profiles) as PracticeScope[]).map((scope) => {
-    const questions = allQuestions.filter((question) => belongsToScope(question, scope));
+    const questions = allQuestions.filter((question) => question.skill_test_scope === scope);
     const categories = Array.from(new Set(questions.map((question) => question.category))).sort(
       (left, right) => left.localeCompare(right)
     );
 
     return {
-      scope: scope as Exclude<SkillTestScope, "common">,
+      scope: scope as SkillTestScope,
       label: profiles[scope].label,
       description: profiles[scope].description,
       categories,
@@ -91,8 +80,8 @@ export default async function QuestionsPage({ searchParams }: PageProps) {
     );
   }
 
-  const questionsForScope = allQuestions.filter((question) =>
-    belongsToScope(question, requestedScope)
+  const questionsForScope = allQuestions.filter(
+    (question) => question.skill_test_scope === requestedScope
   );
   const filteredQuestions = requestedCategory
     ? questionsForScope.filter((question) => question.category === requestedCategory)
