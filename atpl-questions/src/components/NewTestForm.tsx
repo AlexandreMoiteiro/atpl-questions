@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import type { SkillTestScope } from "@/lib/supabase";
 
 type PracticeGroup = {
-  scope: Exclude<SkillTestScope, "common">;
+  scope: SkillTestScope;
   label: string;
   description: string;
   categories: string[];
@@ -18,7 +18,7 @@ type Props = {
 
 export default function NewTestForm({ groups }: Props) {
   const router = useRouter();
-  const [scope, setScope] = useState("");
+  const [scope, setScope] = useState<SkillTestScope | "">("");
   const [category, setCategory] = useState("");
 
   const selectedGroup = useMemo(
@@ -44,8 +44,8 @@ export default function NewTestForm({ groups }: Props) {
           Choose the skill-test profile
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
-          Read the examiner prompt, answer aloud, then reveal the model answer, key points and the
-          exact regulatory or aircraft-document reference.
+          Each profile has its own exclusive question bank. Choose CPL, IR/PBN or SEP, then answer
+          aloud before revealing the model answer and exact source.
         </p>
       </div>
 
@@ -111,9 +111,9 @@ export default function NewTestForm({ groups }: Props) {
       </div>
 
       <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-slate-700">
-        CPL and IR/PBN use the Tecnam P2006T where aircraft-specific content is relevant. The SEP
-        profile is built for the Sevenair Tecnam P2008JC using AFM Doc. 2008/100, Edition 2,
-        Revision 18 and the supplements applicable to the actual aircraft.
+        No active question is shared automatically between profiles. P2006T material belongs to CPL
+        or IR/PBN; the SEP bank is built for the Sevenair Tecnam P2008JC using AFM Doc. 2008/100,
+        Edition 2, Revision 18 and its applicable supplements.
       </div>
     </section>
   );
