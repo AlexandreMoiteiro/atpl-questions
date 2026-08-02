@@ -8,19 +8,32 @@ const testProfiles = [
   {
     scope: "cpl",
     label: "CPL(A)",
-    description: "Performance, planning, diversion, judgement and commercial-pilot standards.",
+    description: "Performance, planning, diversion, tolerances and commercial-pilot judgement.",
   },
   {
     scope: "ir-pbn",
     label: "IR(A) with PBN",
-    description: "IFR planning, PBN eligibility, approaches, holdings and system failures.",
+    description: "Instrument tolerances, PBN eligibility, approaches, holdings and failures.",
   },
   {
     scope: "sep",
-    label: "SEP Class Rating",
-    description: "Appendix 9 oral preparation for the actual single-engine aircraft used.",
+    label: "SEP — Tecnam P2008JC",
+    description: "Appendix 9 and aircraft-specific preparation for the Sevenair P2008JC.",
   },
 ] as const;
+
+type PracticeScope = (typeof testProfiles)[number]["scope"];
+
+function belongsToScope(question: SkillTestQuestion, scope: PracticeScope) {
+  if (question.skill_test_scope === scope) return true;
+  if (question.skill_test_scope !== "common") return false;
+
+  if (scope === "sep") {
+    return !question.aircraft_model || question.aircraft_model === "Tecnam P2008JC";
+  }
+
+  return question.aircraft_model !== "Tecnam P2008JC";
+}
 
 export default async function HomePage() {
   const { data, error } = await supabase
@@ -31,14 +44,10 @@ export default async function HomePage() {
 
   const questions = (data ?? []) as SkillTestQuestion[];
   const official = questions.filter((item) => item.verification_status === "official").length;
-  const p2006 = questions.filter((item) => item.aircraft_model === "Tecnam P2006T").length;
+  const p2008 = questions.filter((item) => item.aircraft_model === "Tecnam P2008JC").length;
 
-  function countFor(scope: "cpl" | "ir-pbn" | "sep") {
-    return questions.filter((item) => {
-      if (item.skill_test_scope === scope) return true;
-      if (item.skill_test_scope !== "common") return false;
-      return scope !== "sep" || !item.aircraft_model;
-    }).length;
+  function countFor(scope: PracticeScope) {
+    return questions.filter((item) => belongsToScope(item, scope)).length;
   }
 
   return (
@@ -55,9 +64,9 @@ export default async function HomePage() {
                 Explain the decision. Defend the source.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600">
-                The generic ATPL multiple-choice bank is no longer used by the application. The active
-                bank follows CPL, IR/PBN and class-rating skill-test profiles, with detailed model
-                answers and exact document references.
+                One hundred and fifty advanced oral scenarios for CPL, IR/PBN and SEP skill tests.
+                Every answer includes the conditions, limits, exceptions and document reference that
+                an examiner can ask you to defend.
               </p>
               <Link
                 href="/questions"
@@ -70,9 +79,9 @@ export default async function HomePage() {
               <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-300">
                 Curated bank
               </p>
-              <Stat label="Active prompts" value={questions.length} />
+              <Stat label="Advanced prompts" value={questions.length} />
               <Stat label="Officially sourced" value={official} />
-              <Stat label="Tecnam P2006T" value={p2006} />
+              <Stat label="Tecnam P2008JC" value={p2008} />
             </aside>
           </div>
         </div>
@@ -107,10 +116,9 @@ export default async function HomePage() {
         </div>
 
         <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-slate-700">
-          <strong className="text-slate-950">Aircraft rule:</strong> the Tecnam P2006T is multi-engine,
-          so its specific questions are used for CPL/IR and MEP-related preparation, not as a SEP
-          aircraft. Exact speeds, limitations and procedures remain tied to the current aircraft AFM,
-          supplements and installed equipment.
+          <strong className="text-slate-950">Aircraft allocation:</strong> P2006T-specific material is
+          used in CPL/IR and multi-engine preparation. SEP aircraft-specific material is restricted to
+          the Sevenair Tecnam P2008JC and its applicable AFM, supplements and installed equipment.
         </div>
       </section>
     </main>
