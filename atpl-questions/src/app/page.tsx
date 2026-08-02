@@ -24,17 +24,6 @@ const testProfiles = [
 
 type PracticeScope = (typeof testProfiles)[number]["scope"];
 
-function belongsToScope(question: SkillTestQuestion, scope: PracticeScope) {
-  if (question.skill_test_scope === scope) return true;
-  if (question.skill_test_scope !== "common") return false;
-
-  if (scope === "sep") {
-    return !question.aircraft_model || question.aircraft_model === "Tecnam P2008JC";
-  }
-
-  return question.aircraft_model !== "Tecnam P2008JC";
-}
-
 export default async function HomePage() {
   const { data, error } = await supabase
     .from("skill_test_questions")
@@ -47,7 +36,7 @@ export default async function HomePage() {
   const p2008 = questions.filter((item) => item.aircraft_model === "Tecnam P2008JC").length;
 
   function countFor(scope: PracticeScope) {
-    return questions.filter((item) => belongsToScope(item, scope)).length;
+    return questions.filter((item) => item.skill_test_scope === scope).length;
   }
 
   return (
@@ -64,9 +53,9 @@ export default async function HomePage() {
                 Explain the decision. Defend the source.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600">
-                One hundred and fifty advanced oral scenarios for CPL, IR/PBN and SEP skill tests.
-                Every answer includes the conditions, limits, exceptions and document reference that
-                an examiner can ask you to defend.
+                One hundred and fifty advanced oral scenarios split into three independent banks.
+                Choosing CPL, IR/PBN or SEP now loads only the questions assigned to that specific
+                skill test.
               </p>
               <Link
                 href="/questions"
@@ -109,16 +98,16 @@ export default async function HomePage() {
                 {profile.description}
               </p>
               <p className="mt-5 border-t border-slate-100 pt-4 text-xs font-black uppercase tracking-[0.12em] text-slate-400">
-                {countFor(profile.scope)} prompts
+                {countFor(profile.scope)} exclusive prompts
               </p>
             </Link>
           ))}
         </div>
 
         <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-slate-700">
-          <strong className="text-slate-950">Aircraft allocation:</strong> P2006T-specific material is
-          used in CPL/IR and multi-engine preparation. SEP aircraft-specific material is restricted to
-          the Sevenair Tecnam P2008JC and its applicable AFM, supplements and installed equipment.
+          <strong className="text-slate-950">Separate-bank rule:</strong> each active prompt belongs to
+          exactly one profile. P2006T material is assigned to CPL or IR/PBN; P2008JC material is
+          assigned only to SEP.
         </div>
       </section>
     </main>
