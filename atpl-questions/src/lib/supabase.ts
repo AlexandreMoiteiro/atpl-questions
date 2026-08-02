@@ -13,7 +13,7 @@ if (!supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export type SkillTestScope = "common" | "cpl" | "ir-pbn" | "sep";
+export type SkillTestScope = "cpl" | "ir-pbn" | "sep";
 
 export type SkillTestQuestion = {
   id: string;
