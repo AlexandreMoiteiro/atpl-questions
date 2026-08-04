@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { SkillTestQuestion } from "@/lib/supabase";
+import type { ExaminerFollowup, SkillTestQuestion } from "@/lib/supabase";
 
 type ReviewState = "ready" | "review";
 
@@ -28,6 +28,7 @@ export default function OralQuestionRunner({
 }: Props) {
   const [orderedQuestions, setOrderedQuestions] = useState(questions);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleFollowupCount, setVisibleFollowupCount] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [reviewStates, setReviewStates] = useState<Record<string, ReviewState>>({});
 
@@ -56,8 +57,14 @@ export default function OralQuestionRunner({
     );
   }
 
+  const followups = currentQuestion.examiner_followups ?? [];
+  const visibleFollowups = followups.slice(0, visibleFollowupCount);
+  const nextFollowup = followups[visibleFollowupCount];
+  const allFollowupsShown = visibleFollowupCount >= followups.length;
+
   function moveTo(index: number) {
     setCurrentIndex(index);
+    setVisibleFollowupCount(0);
     setRevealed(false);
   }
 
@@ -75,7 +82,12 @@ export default function OralQuestionRunner({
   function shuffleQuestions() {
     setOrderedQuestions(shuffled(orderedQuestions));
     setCurrentIndex(0);
+    setVisibleFollowupCount(0);
     setRevealed(false);
+  }
+
+  function pressFurther() {
+    setVisibleFollowupCount((count) => Math.min(count + 1, followups.length));
   }
 
   const progress = Math.round(((currentIndex + 1) / orderedQuestions.length) * 100);
@@ -88,7 +100,7 @@ export default function OralQuestionRunner({
             {profileLabel}
           </p>
           <h1 className="mt-2 text-3xl font-light tracking-tight text-slate-950">
-            Examiner-style oral practice
+            Progressive oral interrogation
           </h1>
           {categoryLabel && (
             <p className="mt-1 text-sm font-semibold text-slate-500">{categoryLabel}</p>
@@ -132,38 +144,78 @@ export default function OralQuestionRunner({
 
           <div className="p-6 md:p-8">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-600">
-              Examiner prompt
+              The examiner opens with
             </p>
             <h2 className="mt-4 text-3xl font-light leading-tight tracking-tight text-slate-950 md:text-4xl">
               {currentQuestion.examiner_question}
             </h2>
-            <p className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-7 text-slate-600">
-              Answer aloud before revealing the model answer. State the decision, explain the logic and
-              identify the controlling document.
-            </p>
 
-            {!revealed ? (
-              <button
-                type="button"
-                onClick={() => setRevealed(true)}
-                className="mt-7 w-full rounded-xl bg-amber-400 px-5 py-4 text-sm font-black uppercase tracking-[0.14em] text-white transition hover:bg-amber-500"
-              >
-                Reveal model answer
-              </button>
-            ) : (
+            <div className="mt-5 rounded-xl border border-slate-300 bg-slate-950 p-5 text-sm leading-7 text-white/80">
+              <strong className="text-white">Answer directly.</strong> Define the component, explain the
+              operating logic, quote the aircraft values, identify the failure indications and finish with
+              the AFM/QRH action. Expect the examiner to interrupt vague answers.
+            </div>
+
+            {visibleFollowups.length > 0 && (
+              <section className="mt-7 space-y-3">
+                {visibleFollowups.map((followup, index) => (
+                  <ExaminerInterruption key={`${followup.question}-${index}`} followup={followup} index={index} />
+                ))}
+              </section>
+            )}
+
+            {!revealed && (
+              <div className="mt-7 grid gap-3 md:grid-cols-2">
+                {nextFollowup ? (
+                  <button
+                    type="button"
+                    onClick={pressFurther}
+                    className="rounded-xl bg-red-600 px-5 py-4 text-sm font-black uppercase tracking-[0.12em] text-white transition hover:bg-red-700"
+                  >
+                    Examiner interrupts — next question
+                  </button>
+                ) : (
+                  <div className="flex items-center justify-center rounded-xl border border-green-200 bg-green-50 px-5 py-4 text-center text-xs font-black uppercase tracking-[0.12em] text-green-700">
+                    Full interrogation delivered
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setRevealed(true)}
+                  className="rounded-xl bg-amber-400 px-5 py-4 text-sm font-black uppercase tracking-[0.12em] text-white transition hover:bg-amber-500"
+                >
+                  {allFollowupsShown ? "Reveal exact answers" : "Stop and reveal answers"}
+                </button>
+              </div>
+            )}
+
+            {revealed && (
               <div className="mt-8 space-y-6">
                 <section className="rounded-2xl border border-amber-200 bg-amber-50 p-6">
                   <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-700">
-                    Model answer
+                    Opening answer
                   </p>
                   <p className="mt-4 whitespace-pre-line text-base leading-8 text-slate-800">
                     {currentQuestion.model_answer}
                   </p>
                 </section>
 
+                {followups.length > 0 && (
+                  <section>
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
+                      Answers to the examiner&apos;s interruptions
+                    </p>
+                    <div className="mt-4 space-y-3">
+                      {followups.map((followup, index) => (
+                        <FollowupAnswer key={`${followup.question}-${index}`} followup={followup} index={index} />
+                      ))}
+                    </div>
+                  </section>
+                )}
+
                 <section>
                   <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
-                    Points the examiner should hear
+                    Exact points that must be heard
                   </p>
                   <ul className="mt-4 grid gap-3 md:grid-cols-2">
                     {currentQuestion.key_points.map((point) => (
@@ -177,11 +229,26 @@ export default function OralQuestionRunner({
                   </ul>
                 </section>
 
+                {(currentQuestion.common_wrong_answers ?? []).length > 0 && (
+                  <section className="rounded-2xl border border-red-200 bg-red-50 p-6">
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-red-700">
+                      Answers the examiner will attack
+                    </p>
+                    <ul className="mt-4 space-y-3">
+                      {currentQuestion.common_wrong_answers.map((answer) => (
+                        <li key={answer} className="text-sm font-semibold leading-6 text-red-900">
+                          “{answer}”
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
+
                 {currentQuestion.verification_status === "aircraft_manual_required" && (
                   <div className="rounded-xl border border-orange-200 bg-orange-50 p-5 text-sm leading-7 text-orange-900">
-                    <strong>Exact aircraft manual required.</strong> Verify the current AFM/POH edition,
-                    revision, effective pages, supplements and installed equipment before using any
-                    aircraft-specific value or procedure.
+                    <strong>Exact aircraft manual required.</strong> Verify the current AFM edition,
+                    revision, effective pages, supplements, registration and installed equipment before
+                    quoting a value or procedure.
                   </div>
                 )}
 
@@ -193,14 +260,14 @@ export default function OralQuestionRunner({
                     onClick={() => assess("review")}
                     className="rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-sm font-black uppercase tracking-[0.12em] text-red-700 transition hover:bg-red-100"
                   >
-                    Need to review
+                    Broke under questioning
                   </button>
                   <button
                     type="button"
                     onClick={() => assess("ready")}
                     className="rounded-xl border border-green-200 bg-green-50 px-5 py-4 text-sm font-black uppercase tracking-[0.12em] text-green-700 transition hover:bg-green-100"
                   >
-                    Could answer clearly
+                    Answered every follow-up
                   </button>
                 </div>
               </div>
@@ -263,6 +330,31 @@ export default function OralQuestionRunner({
   );
 }
 
+function ExaminerInterruption({ followup, index }: { followup: ExaminerFollowup; index: number }) {
+  return (
+    <div className="rounded-2xl border border-red-300 bg-red-50 p-5 shadow-sm">
+      <p className="text-[10px] font-black uppercase tracking-[0.18em] text-red-600">
+        Examiner interruption {index + 1}
+      </p>
+      <p className="mt-2 text-xl font-semibold leading-8 text-slate-950">{followup.question}</p>
+    </div>
+  );
+}
+
+function FollowupAnswer({ followup, index }: { followup: ExaminerFollowup; index: number }) {
+  return (
+    <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+      <div className="border-b border-slate-200 bg-slate-50 px-5 py-4">
+        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-red-600">
+          Follow-up {index + 1}
+        </p>
+        <p className="mt-2 text-lg font-semibold leading-7 text-slate-950">{followup.question}</p>
+      </div>
+      <p className="p-5 text-sm leading-7 text-slate-700">{followup.expected_answer}</p>
+    </article>
+  );
+}
+
 function Badge({ children }: { children: React.ReactNode }) {
   return (
     <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-slate-500">
@@ -307,7 +399,7 @@ function SourceCard({ question }: { question: SkillTestQuestion }) {
           </div>
         )}
       </dl>
-      {question.source_url && (
+      {question.source_url && !question.source_url.startsWith("uploaded://") && (
         <a
           href={question.source_url}
           target="_blank"
