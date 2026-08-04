@@ -15,6 +15,11 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export type SkillTestScope = "cpl" | "ir-pbn" | "sep";
 
+export type ExaminerFollowup = {
+  question: string;
+  expected_answer: string;
+};
+
 export type SkillTestQuestion = {
   id: string;
   skill_test_scope: SkillTestScope;
@@ -23,8 +28,10 @@ export type SkillTestQuestion = {
   topic: string;
   aircraft_model: string | null;
   examiner_question: string;
+  examiner_followups: ExaminerFollowup[];
   model_answer: string;
   key_points: string[];
+  common_wrong_answers: string[];
   source_document: string;
   source_revision: string | null;
   source_section: string;
