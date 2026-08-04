@@ -15,16 +15,19 @@ type PageProps = {
 
 const profiles = {
   cpl: {
-    label: "CPL(A) Skill Test",
-    description: "Performance, planning, judgement and commercial-pilot decision-making.",
+    label: "CPL(A) — Tecnam P2006T",
+    description:
+      "Aircraft systems, exact values, failure indications, limitations and QRH actions under progressive examiner pressure.",
   },
   "ir-pbn": {
     label: "IR(A) with PBN",
-    description: "IFR planning, PBN operations, instrument procedures and failures.",
+    description:
+      "IFR procedures, avionics logic, PBN eligibility, approaches, holds and failures under progressive questioning.",
   },
   sep: {
     label: "SEP — Tecnam P2008JC",
-    description: "SEP skill-test preparation for the Sevenair Tecnam P2008JC.",
+    description:
+      "Aircraft-specific preparation for the Sevenair Tecnam P2008JC using the applicable AFM and operational documents.",
   },
 } as const;
 
